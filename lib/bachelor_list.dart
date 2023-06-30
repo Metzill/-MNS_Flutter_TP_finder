@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:finder/widgets/bachelor_widget.dart';
 import 'package:finder/services/bachelor_service.dart';
 
 import 'bachelor_liked.dart';
 import 'models/bachelor_model.dart';
+import 'tools/tools.dart';
 
 class BachelorList extends StatefulWidget {
   BachelorList({super.key});
@@ -11,10 +14,10 @@ class BachelorList extends StatefulWidget {
   List<Bachelor> bachelorList = BachelorService().generateBachelors();
 
   @override
-  _BachelorListState createState() => _BachelorListState();
+  BachelorListState createState() => BachelorListState();
 }
 
-class _BachelorListState extends State<BachelorList> {
+class BachelorListState extends State<BachelorList> {
   List<Bachelor> likedBachelors = [];
 
   void navigateToLikedList() {
@@ -27,17 +30,29 @@ class _BachelorListState extends State<BachelorList> {
     );
   }
 
+  void goToFavorites() {
+    context.go('/favorites');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("BachelorList"),
+        actions: <Widget>[
+          IconButton(
+              onPressed: goToFavorites,
+              icon: const Icon(
+                Icons.star,
+                color: Colors.yellowAccent,
+              ))
+        ],
       ),
       body: ListView(
         children: widget.bachelorList.map((Bachelor bachelor) {
           return Padding(
-            padding: const EdgeInsets.fromLTRB(5.0, 2.5, 5.0, 2.5),
+            padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 2.5),
             child: BachelorWidget(
               bachelor: bachelor,
               likedBachelors: likedBachelors,

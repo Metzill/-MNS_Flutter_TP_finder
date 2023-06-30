@@ -19,12 +19,27 @@ class BachelorWidget extends StatefulWidget {
 class _BachelorState extends State<BachelorWidget> {
   int randomColorId = Random().nextInt(18);
 
+  Icon getLikedIcon() {
+    if (widget.likedBachelors.contains(widget.bachelor)) {
+      return const Icon(
+        Icons.favorite,
+        color: Colors.redAccent,
+      );
+    }
+
+    return const Icon(
+      Icons.favorite_border,
+      color: Colors.grey,
+    );
+  }
+
   Color generateColor() {
-    return Colors.primaries[randomColorId];
+    // return Colors.primaries[randomColorId];
+    return const Color.fromARGB(50, 252, 174, 191);
   }
 
   Future<void> navigateToDetails() async {
-    final result = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => BachelorDetail(
@@ -44,9 +59,7 @@ class _BachelorState extends State<BachelorWidget> {
       leading: Image(
         image: AssetImage(widget.bachelor.avatar),
       ),
-      trailing: widget.likedBachelors.contains(widget.bachelor)
-          ? const Icon(Icons.favorite)
-          : null,
+      trailing: getLikedIcon(),
       tileColor: generateColor(),
       onTap: navigateToDetails,
       contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 8),

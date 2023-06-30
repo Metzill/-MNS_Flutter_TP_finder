@@ -11,7 +11,6 @@ class BachelorService {
     List<String> maleName = getMaleName();
     List<String> femaleName = getFemaleName();
     List<Bachelor> bachelorList = [];
-    List<Gender> searchFor = [];
 
     for (int i = 0; i < 15; i++) {
       bachelorList.add(Bachelor(

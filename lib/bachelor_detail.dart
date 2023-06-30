@@ -15,10 +15,10 @@ class BachelorDetail extends StatefulWidget {
   final Color color;
 
   @override
-  _BachelorDetailState createState() => _BachelorDetailState();
+  BachelorDetailState createState() => BachelorDetailState();
 }
 
-class _BachelorDetailState extends State<BachelorDetail> {
+class BachelorDetailState extends State<BachelorDetail> {
   bool _isLiked = false;
 
   @override
@@ -28,10 +28,17 @@ class _BachelorDetailState extends State<BachelorDetail> {
   }
 
   switchLiked() {
-    setState(() {
-      _isLiked = !_isLiked;
-    });
-    widget.likedBachelors.add(widget.bachelor);
+    if (_isLiked) {
+      widget.likedBachelors.remove(widget.bachelor);
+      setState(() {
+        _isLiked = !_isLiked;
+      });
+    } else {
+      setState(() {
+        _isLiked = !_isLiked;
+      });
+      widget.likedBachelors.add(widget.bachelor);
+    }
     Navigator.pop(context, widget.likedBachelors);
   }
 
@@ -78,7 +85,7 @@ class _BachelorDetailState extends State<BachelorDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("${widget.bachelor.firstname} ${widget.bachelor.lastname}"),
       ),
       body: SingleChildScrollView(
@@ -100,7 +107,9 @@ class _BachelorDetailState extends State<BachelorDetail> {
                               alignment: Alignment.bottomCenter,
                               child: Icon(
                                 Icons.favorite,
-                                color: _isLiked ? Colors.red : Colors.grey,
+                                color: _isLiked
+                                    ? Colors.red
+                                    : const Color.fromRGBO(252, 174, 191, 0.75),
                                 size: 100,
                               ),
                             ),
@@ -113,7 +122,7 @@ class _BachelorDetailState extends State<BachelorDetail> {
               thickness: 3.5,
               indent: 25.0,
               endIndent: 25.0,
-              color: Colors.white,
+              color: Color.fromARGB(127, 158, 158, 158),
             ),
             Padding(
                 padding: const EdgeInsets.fromLTRB(25.0, 0, 25.0, 25.0),
@@ -135,7 +144,7 @@ class _BachelorDetailState extends State<BachelorDetail> {
                     const Divider(
                       height: 50.0,
                       thickness: 3.5,
-                      color: Colors.white,
+                      color: Color.fromARGB(127, 158, 158, 158),
                     ),
                     Center(
                       child: IconButton(
@@ -151,7 +160,9 @@ class _BachelorDetailState extends State<BachelorDetail> {
                         },
                         icon: Icon(
                           Icons.favorite,
-                          color: _isLiked ? Colors.red : Colors.white,
+                          color: _isLiked
+                              ? Colors.red
+                              : const Color.fromRGBO(252, 174, 191, 1),
                         ),
                       ),
                     )
