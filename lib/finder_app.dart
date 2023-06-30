@@ -1,3 +1,4 @@
+import 'package:finder/bachelor_detail.dart';
 import 'package:finder/bachelor_favorites.dart';
 import 'package:flutter/material.dart';
 import 'package:finder/bachelor_list.dart';
@@ -13,7 +14,7 @@ class BachelorListApp extends StatelessWidget {
         GoRoute(
           path: 'favorites',
           builder: (context, state) => const BachelorFavorites(),
-        )
+        ),
       ]),
     ],
   );

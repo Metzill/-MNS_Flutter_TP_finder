@@ -1,3 +1,4 @@
+import 'package:finder/provider/bachelor_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,10 +24,7 @@ class BachelorListState extends State<BachelorList> {
   void navigateToLikedList() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => BachelorLiked(
-                likedBachelors: likedBachelors,
-              )),
+      MaterialPageRoute(builder: (context) => const BachelorLiked()),
     );
   }
 
@@ -50,19 +48,19 @@ class BachelorListState extends State<BachelorList> {
         ],
       ),
       body: ListView(
-        children: widget.bachelorList.map((Bachelor bachelor) {
+        children: BachelorProvider().bachelors.map((Bachelor bachelor) {
           return Padding(
             padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 2.5),
             child: BachelorWidget(
               bachelor: bachelor,
-              likedBachelors: likedBachelors,
+              likedBachelors: BachelorProvider().likedBachelors,
             ),
           );
         }).toList(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: navigateToLikedList,
-        tooltip: 'Increment',
+        tooltip: 'Liked lists',
         child: const Icon(Icons.favorite_sharp),
       ),
     );
